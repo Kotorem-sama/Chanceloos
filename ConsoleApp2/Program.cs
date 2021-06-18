@@ -13,6 +13,7 @@ namespace ConsoleApp2
             };
             string s = Method1D(jagged[1], 1);
             s = Method2D(jagged, 0, 0);
+            Console.WriteLine(s);
         }
 
         public static string Method1D(int[] arr, int i)
