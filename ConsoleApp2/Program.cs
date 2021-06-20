@@ -4,40 +4,54 @@ namespace ConsoleApp2
 {
     class Program
     {
-        public static void Main()
+        public static string[] Push(string[] aras, string addd)
         {
-            int[][] jagged = new int[][]{
-            new int[]{2, 3},
-            new int[]{7, 8, 9},
-            new int[]{4}
-            };
-            string s = Method1D(jagged[1], 1);
-            s = Method2D(jagged, 0, 0);
-            Console.WriteLine(s);
+            string[] newara = new string[aras.Length + 1];
+            for (int i = 0; i < aras.Length; i++)
+            {
+                newara[i] = aras[i];
+            }
+            newara[aras.Length] = addd;
+            return newara;
         }
 
-        public static string Method1D(int[] arr, int i)
+        public static string Peek(string[] ara)
         {
-            if (i >= arr.Length)
-            {
-                return "";
-            }
-            return arr[i] + Method1D(arr, i + 1);
+            return ara[ara.Length - 1];
         }
 
-        public static string Method2D(int[][] arr, int i, int j)
+        public static Tuple<string[], string> Pop(string[] aras)
         {
-            if (i >= arr.Length)
+            string[] newara = new string[aras.Length - 1];
+            for (int i = 0; i < aras.Length - 1; i++)
             {
-                return "";
+                newara[i] = aras[i];
             }
-            if (j < arr[i].Length)
+            return Tuple.Create(newara, aras[aras.Length - 1]);
+        }
+
+        public static bool AreSameSize(int[][] arr1, int[][] arr2)
+        {
+            int count1 = 0;
+            for (int i = 0; i < arr1.Length; i++)
             {
-                return arr[i][j] + Method2D(arr, i, j + 1);
+                count1 += arr1[i].Length;
+            }
+            count1 *= arr1.Length;
+
+            int count2 = 0;
+            for (int i = 0; i < arr2.Length; i++)
+            {
+                count2 += arr2[i].Length;
+            }
+            count2 *= arr2.Length;
+            if (count1 == count2)
+            {
+                return true;
             }
             else
             {
-                return "\n" + Method2D(arr, i + 1, 0);
+                return false;
             }
         }
     }
