@@ -4,48 +4,104 @@ namespace ConsoleApp2
 {
     class Program
     {
-        public static bool AreSameSize(int[][] arr1, int[][] arr2)
+        public static void Main()
         {
-            int count1 = 0;
-            for (int i = 0; i < arr1.Length; i++)
+            bool game6 = IsWinState(new char[][]{
+            new char[]{'o', 'x', 'o', 'o'},
+            new char[]{'o', 'x', 'x', 'o'},
+            new char[]{'x', 'o', 'x', 'x'},
+            new char[]{'x', 'o', 'x', 'x'},
+            });
+            Console.WriteLine(game6);
+        }
+        public static bool IsWinState(char[][] board)
+        {
+            //horizontal
+            for (int i = 0; i < board.Length; i++)
             {
-                count1 += arr1[i].Length;
+                char check = board[i][0];
+                bool checker = true;
+                if (board[i][0] == ' ')
+                {
+                    checker = false;
+                }
+                for (int j = 0; j < board[i].Length; j++)
+                {
+                    if (check != board[i][j])
+                    {
+                        checker = false;
+                        break;
+                    }
+                }
+                if (checker)
+                {
+                    return true;
+                }
             }
-            count1 *= arr1.Length;
 
-            int count2 = 0;
-            for (int i = 0; i < arr2.Length; i++)
+            //vertical
+            for (int i = 0; i < board.Length; i++)
             {
-                count2 += arr2[i].Length;
+                char check = board[0][i];
+                bool checker = true;
+                if (board[0][i] == ' ')
+                {
+                    checker = false;
+                }
+                for (int j = 0; j < board[0].Length; j++)
+                {
+                    if (check != board[j][i])
+                    {
+                        checker = false;
+                        break;
+                    }
+                }
+                if (checker)
+                {
+                    return true;
+                }
             }
-            count2 *= arr2.Length;
-            if (count1 == count2)
+
+            //diagonal right
+            char check2 = board[0][0];
+            bool checker2 = true;
+            if (board[0][0] == ' ')
+            {
+                checker2 = false;
+            }
+            for (int j = 0; j < board[0].Length; j++)
+            {
+                if (check2 != board[j][j])
+                {
+                    checker2 = false;
+                    break;
+                }
+            }
+            if (checker2)
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
-        }
 
-        public static int[][] AddArrays(int[][] arr1, int[][] arr2)
-        {
-            bool check = AreSameSize(arr1, arr2);
-            if (check)
+            //diagonal left
+            char check3 = board[board.Length - 1][0];
+            bool checker3 = true;
+            if (board[board.Length - 1][0] == ' ')
             {
-                int[][] ret = new int[arr1.Length][];
-                for (int i = 0; i < arr1.Length; i++)
-                {
-                    ret[i] = new int[arr1[i].Length];
-                    for (int j = 0; j < arr1[i].Length; j++)
-                    {
-                        ret[i][j] = arr1[i][j] + arr2[i][j];
-                    }
-                }
-                return ret;
+                checker3 = false;
             }
-            return null;
+            for (int j = 0; j < board[0].Length; j++)
+            {
+                if (check3 != board[board.Length - 1 - j][j])
+                {
+                    checker3 = false;
+                    break;
+                }
+            }
+            if (checker3)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
